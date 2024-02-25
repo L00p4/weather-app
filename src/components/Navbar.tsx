@@ -1,4 +1,7 @@
 import React from 'react'
+import { MdOutlineLocationOn, MdWbSunny } from "react-icons/md";
+import { MdMyLocation } from "react-icons/md";
+import SearchBox from './SearchBox';
 
 type NavbarProps = {}
 
@@ -8,7 +11,15 @@ export default function Navbar({ }: NavbarProps) {
       <div className='h-[5rem] w-full flex justify-between items-center max-w-7x1 px-3 mx-auto'>
         <p className='flex items-center justify-center gap-2'>
           <h2 className='text-gray-500 text-3xl'>Weather </h2>
+          <MdWbSunny  className='text-3xl mt-1 te text-yellow-300'/>
         </p>
+
+        <section className='flex gap-2 items-center'>
+        <MdMyLocation className='text-2xl text-gray-400 hover:opacity-80 cursor-pointer'/>
+        <MdOutlineLocationOn className='text-3xl'/>
+        <p className='text-slate-900/80 text-sm'>Localização</p>
+        <div><SearchBox /></div>
+        </section>
       </div>
     </nav>
   )
