@@ -1,6 +1,8 @@
 'use client'
 
+import Container from "@/components/Container";
 import Navbar from "@/components/Navbar";
+import { convertKelvinToCelsius } from "@/utils/conertKelvinToCelsius";
 import axios from "axios";
 import { format, parseISO } from "date-fns";
 import { useQuery } from "react-query";
@@ -94,7 +96,12 @@ export default function Home() {
               <p>{format(parseISO(firstData?.dt_txt ?? ""), 'EEEE')}</p>
               <p className="">({format(parseISO(firstData?.dt_txt ?? ""), 'dd.MM.yyyy')})</p>
             </h2>
-            <div></div>
+            <Container className=" gap-10 px-6 items-center">
+              <div className=" flex flex-col px-4">
+                {convertKelvinToCelsius(firstData?.main.temp ?? 0)}°
+                vídeo parou em 53:43
+              </div>
+            </Container>
           </div>
         </section>
         {/* 7 day forecast data */}
