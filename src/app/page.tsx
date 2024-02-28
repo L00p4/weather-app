@@ -2,6 +2,7 @@
 
 import Container from "@/components/Container";
 import Navbar from "@/components/Navbar";
+import WeatherIcon from "@/components/WeatherIcon";
 import { convertKelvinToCelsius } from "@/utils/conertKelvinToCelsius";
 import axios from "axios";
 import { format, parseISO } from "date-fns";
@@ -62,7 +63,7 @@ interface WeatherEntry {
   dt_txt: string;
 }
 
-export default function Home() {
+function Home() {
   const { isLoading, error, data } = useQuery<WeatherData>(
     "repoData",
     async () => {
@@ -130,8 +131,9 @@ export default function Home() {
                   >
                     <p className="whitespace-nowrap">
                       {format(parseISO(d.dt_txt), "h:mm a")}
-                      vídeo parou em 1:01:11
                     </p>
+                    <WeatherIcon iconName={d.weather[0].icon} />
+                    <p>{convertKelvinToCelsius(d.main.temp ?? 0)}°</p>
                   </div>
                 ))}
               </div>
@@ -144,3 +146,5 @@ export default function Home() {
     </div>
   );
 }
+
+export default Home;

@@ -9,12 +9,7 @@ type SearchBoxProps = {
   onSubmit: React.FormEventHandler<HTMLFormElement> | undefined;
 };
 
-export default function SearchBox({
-  className,
-  value,
-  onChange,
-  onSubmit,
-}: SearchBoxProps) {
+function SearchBox({ className, value, onChange, onSubmit }: SearchBoxProps) {
   return (
     <form
       onSubmit={onSubmit}
@@ -36,3 +31,5 @@ export default function SearchBox({
     </form>
   );
 }
+
+export default SearchBox;
