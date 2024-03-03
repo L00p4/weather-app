@@ -5,17 +5,22 @@ import { MdOutlineLocationOn, MdWbSunny } from "react-icons/md";
 import { MdMyLocation } from "react-icons/md";
 import SearchBox from "./SearchBox";
 import axios from "axios";
+import { useAtom } from "jotai";
+import { loadingCityAtom, placeAtom } from "@/app/atom";
 
-type NavbarProps = {};
+type NavbarProps = { location?: string };
 
 const API_KEY = process.env.NEXT_PUBLIC_WEATHER_KEY;
 
-function Navbar({}: NavbarProps) {
+function Navbar({ location }: NavbarProps) {
   const [city, setCity] = useState("");
   const [error, setError] = useState("");
 
   const [suggestion, setSuggestion] = useState<string[]>([]);
   const [showSuggestion, setShowSuggestion] = useState(false);
+
+  const [place, setPlace] = useAtom(placeAtom);
+  const [_, setLoadingCity] = useAtom(loadingCityAtom);
 
   async function handleInputChange(value: string) {
     setCity(value);
@@ -45,12 +50,18 @@ function Navbar({}: NavbarProps) {
   }
 
   function handleOnSubmitSearch(e: React.FormEvent<HTMLFormElement>) {
+    setLoadingCity(true);
     e.preventDefault();
     if (suggestion.length == 0) {
       setError("Localização não encontrada");
+      setLoadingCity(false);
     } else {
       setError("");
-      setShowSuggestion(false);
+      setTimeout(() => {
+        setLoadingCity(false);
+        setPlace(city);
+        setShowSuggestion(false);
+      }, 500);
     }
   }
 
@@ -65,7 +76,7 @@ function Navbar({}: NavbarProps) {
         <section className="flex gap-2 items-center">
           <MdMyLocation className="text-2xl text-gray-400 hover:opacity-80 cursor-pointer" />
           <MdOutlineLocationOn className="text-3xl" />
-          <p className="text-slate-900/80 text-sm">Localização</p>
+          <p className="text-slate-900/80 text-sm">{location}</p>
           <div className="relative">
             <SearchBox
               value={city}
