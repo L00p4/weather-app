@@ -45,7 +45,7 @@ export default function WeatherDetails({
       />
       <SingleWeatherDetail
         icon={<LuSunrise />}
-        information="Sunset"
+        information="Sunrise"
         value={sunrise}
       />
       <SingleWeatherDetail
